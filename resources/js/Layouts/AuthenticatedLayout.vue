@@ -412,7 +412,7 @@ function setActiveTeam(team: typeof data.teams[number]) {
                                     </DropdownMenuItem>
                                 </DropdownMenuGroup>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem>
+                                <DropdownMenuItem @click="router.visit('/logout',{method:'post'})">
                                     <LogOut />
                                     Log out
                                 </DropdownMenuItem>
