@@ -20,6 +20,24 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Allowed Foreign Keys
+    |--------------------------------------------------------------------------
+    |
+    | This configuration setting determines whether foreign key constraints
+    | are enabled for database tables. When set to true, foreign key constraints
+    | are enforced by the database, ensuring data integrity between related tables.
+    |
+    | Use this option to control whether your application should enforce foreign
+    | key relationships. This is particularly useful for development or testing
+    | environments where constraints might interfere with database operations,
+    | such as truncating tables with existing dependencies.
+    |
+    */
+
+    'allowForeignKeys' => env('DB_FOREIGN_KEYS_ENABLED', true),
+
+    /*
+    |--------------------------------------------------------------------------
     | Database Connections
     |--------------------------------------------------------------------------
     |
