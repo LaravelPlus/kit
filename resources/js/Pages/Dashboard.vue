@@ -2,16 +2,13 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
-// example of api call if needed ( use inertia unless you really need api)
-// import { getUser } from '@/Api/user';
-// import { onMounted } from 'vue';
-// onMounted(()=>{
-//     getUser();
-// });
+// Props from Inertia
+defineProps({
+    teams: Array, // Expect an array of teams
+});
 </script>
 
 <template>
-
     <Head title="Dashboard" />
 
     <AuthenticatedLayout>
@@ -25,8 +22,21 @@ import { Head } from '@inertiajs/vue3';
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
-                        You're logged in!ss
+                        You're logged in!
                     </div>
+                </div>
+
+                <!-- Display teams -->
+                <div class="mt-6">
+                    <h3 class="text-lg font-semibold">Your Teams:</h3>
+                    <ul>
+                        <li v-for="team in teams" :key="team.id" class="mt-2">
+                            <a :href="'/teams/' + team.slug" class="text-blue-500 hover:underline">
+                                {{ team.name }}
+                            </a>
+                        </li>
+                    </ul>
+                    <p v-if="!teams.length" class="text-gray-500">You are not part of any teams yet.</p>
                 </div>
             </div>
         </div>

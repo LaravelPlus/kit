@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -33,9 +34,35 @@ final class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'auth' => [
-                'user' => $request->user(),
-            ],
+            'auth' => $this->getAuthenticatedUser($request),
+            'teams' => $this->getUserTeams(),
         ];
+    }
+
+    /**
+     * Get the authenticated user.
+     */
+    private function getAuthenticatedUser(Request $request): array
+    {
+        return [
+            'user' => $request->user(),
+        ];
+    }
+
+    /**
+     * Get teams for the authenticated user.
+     */
+    private function getUserTeams(): array
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return [];
+        }
+
+        return Team::where('user_id', $user->id)
+            ->select('id', 'name', 'slug')
+            ->get()
+            ->toArray();
     }
 }
