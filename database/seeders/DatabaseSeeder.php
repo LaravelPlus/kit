@@ -18,7 +18,7 @@ final class DatabaseSeeder extends Seeder
         $this->call([
             UserTableSeeder::class,
             TeamSeeder::class,
-            NavbarSeeder::class
+            NavbarSeeder::class,
         ]);
     }
 }

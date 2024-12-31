@@ -1,17 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
+return new class() extends Migration
 {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-        Schema::create('navbar', function (Blueprint $table) {
+        Schema::create('navbar', function (Blueprint $table): void {
             $table->id(); // Primary key (automatically indexed)
             $table->string('title'); // Title of the menu item
             $table->string('url')->nullable(); // URL of the menu item

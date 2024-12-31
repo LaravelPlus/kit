@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Database\Factories\NavbarFactory;
@@ -8,12 +10,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Navbar extends Model
+final class Navbar extends Model
 {
     /** @use HasFactory<NavbarFactory> */
     use HasFactory;
 
     protected $table = 'navbar';
+
     protected $fillable = [
         'title',
         'url',
