@@ -1,5 +1,5 @@
 <script setup lang='ts'>
-import ThemeToggleButton from '@/Components/ThemeToggleButton.vue';
+import ThemeToggleButton from '@/Components/buttons/ThemeToggleButton.vue';
 import { Avatar, AvatarFallback, AvatarImage, } from '@/shadcn/ui/avatar';
 import {
     Breadcrumb,
@@ -73,6 +73,7 @@ import {
 import { ref } from 'vue'
 
 import { router } from '@inertiajs/vue3'
+import {Input} from "@/shadcn/ui/input";
 
 // This is sample data.
 const data = {
@@ -279,10 +280,7 @@ function setActiveTeam(team: typeof data.teams[number]) {
             </SidebarHeader>
             <SidebarContent>
                 <SidebarGroup>
-                    <SidebarGroupLabel class='flex justify-between'>
-                        <span>Platform</span>
-                        <ThemeToggleButton />
-                    </SidebarGroupLabel>
+
                     <SidebarMenu>
                         <Collapsible v-for="item in data.navMain" :key="item.title" as-child
                             :default-open="item.isActive" class="group/collapsible">
@@ -445,6 +443,8 @@ function setActiveTeam(team: typeof data.teams[number]) {
                             </template>
                         </BreadcrumbList>
                     </Breadcrumb>
+
+                    <ThemeToggleButton />
                 </div>
             </header>
             <div class="flex flex-1 flex-col gap-4 p-4 pt-0">
