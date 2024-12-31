@@ -3,15 +3,25 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 
 // Props from Inertia
-defineProps({
-    teams: Array, // Expect an array of teams
-});
+// defineProps({
+//     teams: Array,
+//     navbar: Object,
+//     user: Object,
+//     errors: Object,
+// });
+
+defineProps<{
+    teams: array;
+    navbar: array;
+    auth?: object;
+    errors?: object;
+}>();
 </script>
 
 <template>
     <Head title="Dashboard" />
 
-    <AuthenticatedLayout>
+    <AuthenticatedLayout :auth="auth" :navbar="navbar">
         <template #header>
             <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 Dashboard

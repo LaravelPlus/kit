@@ -15,7 +15,7 @@ final class TeamSeeder extends Seeder
     public function run(): void
     {
         $this->command->info('Teams table seeded active team generated!');
-        Team::factory()->count(50)->create();
+        Team::factory()->count(5)->create();
 
         $this->command->info('Teams table seeded inactive team generated!!');
         Team::factory()->inactive()->count(5)->create();

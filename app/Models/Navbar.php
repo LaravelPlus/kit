@@ -13,6 +13,7 @@ class Navbar extends Model
     /** @use HasFactory<NavbarFactory> */
     use HasFactory;
 
+    protected $table = 'navbar';
     protected $fillable = [
         'title',
         'url',
