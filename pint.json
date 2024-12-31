@@ -1,6 +1,8 @@
 {
   "preset": "laravel",
   "exclude": [
+    "packages",
+    "deprecated"
   ],
   "notName": [
     "*.js",
@@ -14,10 +16,8 @@
     "array_syntax": true,
     "binary_operator_spaces": false,
     "statement_indentation": true,
-
     "curly_braces_position": false,
     "braces": false,
-
     "blank_line_after_namespace": true,
     "blank_line_after_opening_tag": true,
     "combine_consecutive_issets": true,
