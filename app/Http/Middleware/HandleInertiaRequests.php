@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
+use App\Models\Navbar;
 use App\Models\Team;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -34,8 +35,9 @@ final class HandleInertiaRequests extends Middleware
     {
         return [
             ...parent::share($request),
-            'auth' => $this->getAuthenticatedUser($request),
-            'teams' => $this->getUserTeams(),
+            'auth'   => $this->getAuthenticatedUser($request),
+            'teams'  => $this->getUserTeams(),
+            'navbar' => $this->getNavbar(),
         ];
     }
 
@@ -62,7 +64,15 @@ final class HandleInertiaRequests extends Middleware
 
         return Team::where('user_id', $user->id)
             ->select('id', 'name', 'slug')
-            ->get()
-            ->toArray();
+            ->get()->toArray();
+    }
+
+    private function getNavbar(): array|object
+    {
+        return Navbar::with('children')
+//            ->where('is_active', true)
+            ->whereNull('parent_id') // Fetch top-level menu items
+            ->orderBy('order')
+            ->get();
     }
 }

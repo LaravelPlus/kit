@@ -205,6 +205,13 @@ const data = {
     ],
 }
 
+const componentMap = {
+    SquareTerminal,
+    Bot,
+    BookOpen,
+    Settings2,
+};
+
 const activeTeam = ref(data.teams[0])
 
 type Breadcrumb = {
@@ -228,6 +235,7 @@ const breadcrumbs: Breadcrumb[] = [
 function setActiveTeam(team: typeof data.teams[number]) {
     activeTeam.value = team
 }
+
 </script>
 <template>
     <SidebarProvider>
@@ -255,7 +263,7 @@ function setActiveTeam(team: typeof data.teams[number]) {
                                 <DropdownMenuLabel class="text-xs text-muted-foreground">
                                     Teams
                                 </DropdownMenuLabel>
-                                <DropdownMenuItem v-for="(team, index) in data.teams" :key="team.name" class="gap-2 p-2"
+                                <DropdownMenuItem v-for="(team, index) in $page.props.teams" :key="team.name" class="gap-2 p-2"
                                     @click="setActiveTeam(team)">
                                     <div class="flex size-6 items-center justify-center rounded-sm border">
                                         <component :is="team.logo" class="size-4 shrink-0" />
@@ -278,16 +286,18 @@ function setActiveTeam(team: typeof data.teams[number]) {
                     </SidebarMenuItem>
                 </SidebarMenu>
             </SidebarHeader>
-            <SidebarContent>
-                <SidebarGroup>
 
+            <SidebarContent>
+
+                <SidebarGroup>
                     <SidebarMenu>
-                        <Collapsible v-for="item in data.navMain" :key="item.title" as-child
-                            :default-open="item.isActive" class="group/collapsible">
+<!--                        <Collapsible v-for="item in data.navMain" :key="item.title" as-child-->
+                        <Collapsible v-for="item in $page.props.navbar" :key="item.title" as-child
+                            :default-open="item.is_active" class="group/collapsible">
                             <SidebarMenuItem>
                                 <CollapsibleTrigger as-child>
                                     <SidebarMenuButton :tooltip="item.title">
-                                        <component :is="item.icon" />
+                                        <component :is="componentMap[item.icon]"  />
                                         <span>{{ item.title }}</span>
                                         <ChevronRight
                                             class="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
@@ -295,7 +305,7 @@ function setActiveTeam(team: typeof data.teams[number]) {
                                 </CollapsibleTrigger>
                                 <CollapsibleContent>
                                     <SidebarMenuSub>
-                                        <SidebarMenuSubItem v-for="subItem in item.items" :key="subItem.title">
+                                        <SidebarMenuSubItem v-for="subItem in item.children" :key="subItem.title">
                                             <SidebarMenuSubButton as-child>
                                                 <a :href="subItem.url">
                                                     <span>{{ subItem.title }}</span>
@@ -308,6 +318,7 @@ function setActiveTeam(team: typeof data.teams[number]) {
                         </Collapsible>
                     </SidebarMenu>
                 </SidebarGroup>
+
                 <SidebarGroup class="group-data-[collapsible=icon]:hidden">
                     <SidebarGroupLabel>Projects</SidebarGroupLabel>
                     <SidebarMenu>
@@ -350,7 +361,9 @@ function setActiveTeam(team: typeof data.teams[number]) {
                         </SidebarMenuItem>
                     </SidebarMenu>
                 </SidebarGroup>
+
             </SidebarContent>
+
             <SidebarFooter>
                 <SidebarMenu>
                     <SidebarMenuItem>
@@ -359,14 +372,14 @@ function setActiveTeam(team: typeof data.teams[number]) {
                                 <SidebarMenuButton size="lg"
                                     class="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
                                     <Avatar class="h-8 w-8 rounded-lg">
-                                        <AvatarImage :src="data.user.avatar" :alt="data.user.name" />
+                                        <AvatarImage :src="data.user.avatar" :alt="$page.props.auth.user.name" />
                                         <AvatarFallback class="rounded-lg">
                                             CN
                                         </AvatarFallback>
                                     </Avatar>
                                     <div class="grid flex-1 text-left text-sm leading-tight">
-                                        <span class="truncate font-semibold">{{ data.user.name }}</span>
-                                        <span class="truncate text-xs">{{ data.user.email }}</span>
+                                        <span class="truncate font-semibold">{{ $page.props.auth.user.name }}</span>
+                                        <span class="truncate text-xs">{{ $page.props.auth.user.email }}</span>
                                     </div>
                                     <ChevronsUpDown class="ml-auto size-4" />
                                 </SidebarMenuButton>
@@ -382,8 +395,8 @@ function setActiveTeam(team: typeof data.teams[number]) {
                                             </AvatarFallback>
                                         </Avatar>
                                         <div class="grid flex-1 text-left text-sm leading-tight">
-                                            <span class="truncate font-semibold">{{ data.user.name }}</span>
-                                            <span class="truncate text-xs">{{ data.user.email }}</span>
+                                            <span class="truncate font-semibold">{{ $page.props.auth.user.name }}</span>
+                                            <span class="truncate text-xs">{{ $page.props.auth.user.email }}</span>
                                         </div>
                                     </div>
                                 </DropdownMenuLabel>
